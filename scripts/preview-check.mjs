@@ -1,0 +1,17 @@
+import { chromium } from '@playwright/test';
+const browser = await chromium.launch({ channel: 'chrome' });
+const page = await browser.newPage({ viewport: { width: 1449, height: 1086 } });
+await page.goto(process.env.PREVIEW_URL || 'http://localhost:5174');
+await page.evaluate(() => document.fonts.ready);
+await page.locator('.portrait-scene img').evaluate(img => img.decode());
+await page.screenshot({ path: 'test-results/hero-desktop.png' });
+await page.getByRole('button', { name: 'ENTER', exact: true }).click();
+await page.screenshot({ path: 'test-results/map-desktop.png' });
+await page.getByRole('button', { name: /ROOFTOP 01/ }).click();
+await page.screenshot({ path: 'test-results/encounter-desktop.png' });
+await page.getByRole('button', { name: 'Webline home' }).click();
+await page.setViewportSize({ width: 390, height: 844 });
+await page.screenshot({ path: 'test-results/hero-mobile.png' });
+await page.getByRole('button', { name: 'ENTER', exact: true }).click();
+await page.screenshot({ path: 'test-results/map-mobile.png' });
+await browser.close();

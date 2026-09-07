@@ -1,0 +1,106 @@
+.arena .drone {
+  width: 62px;
+  height: 52px;
+  padding: 0;
+  min-width: 48px;
+  min-height: 48px;
+  justify-content: center;
+}
+.arena .drone-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px #0009);
+  overflow: visible;
+}
+.arena .drone-label {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 3px 6px;
+  font-size: 11px;
+  pointer-events: none;
+  line-height: 1.3;
+}
+.arena[data-difficulty='easy'] .drone {
+  width: 110px;
+  height: 92px;
+}
+.arena[data-difficulty='easy'] .drone-label {
+  font-size: 12px;
+}
+.capture-net {
+  position: absolute;
+  inset: 0;
+  border: 1px solid white;
+  border-radius: 40%;
+  display: grid;
+  place-items: center;
+  background:
+    repeating-linear-gradient(35deg, transparent 0 11px, #fff9 12px 13px),
+    repeating-linear-gradient(-35deg, transparent 0 11px, #fff9 12px 13px);
+  pointer-events: none;
+}
+.capture-net svg {
+  width: 25px;
+  height: 25px;
+  color: white;
+  filter: drop-shadow(0 1px 3px #000);
+}
+.shooter-pivot {
+  position: absolute;
+  width: 190px;
+  height: 240px;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) rotate(var(--aim-angle, 0deg));
+  transform-origin: 50% 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+.arena .reference-glove {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  bottom: -28px;
+  transform: none;
+  transform-origin: 50% 95%;
+  filter: drop-shadow(5px 6px 10px #0006);
+}
+.arena[data-firing='true'] .reference-glove {
+  animation: glove-fire 0.22s ease-out;
+}
+@keyframes glove-fire {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(9px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@media (max-width: 760px) {
+  .arena .drone {
+    width: 52px;
+    height: 48px;
+  }
+  .arena[data-difficulty='easy'] .drone {
+    width: 80px;
+    height: 70px;
+  }
+  .shooter-pivot {
+    width: 125px;
+    height: 157px;
+  }
+  .arena .reference-glove {
+    bottom: -20px;
+  }
+  .arena .drone-label {
+    font-size: 10px;
+    padding: 3px 4px;
+  }
+}

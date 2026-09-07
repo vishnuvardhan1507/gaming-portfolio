@@ -1,0 +1,398 @@
+/* Live interface over the cleaned user-supplied portrait composition. */
+.portrait-scene {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  background: #090b10;
+}
+.portrait-scene > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transform: translateY(1.8%);
+}
+.portrait-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #03070b4d, #03070b33 35%, transparent 60%);
+}
+.portrait-entry .game-header {
+  height: clamp(82px, 9.85svh, 108px);
+  padding-inline: 4%;
+  background: #080d1494;
+  backdrop-filter: none;
+  border-color: #b9c6da14;
+}
+.portrait-entry .brand {
+  font-size: 32px;
+  letter-spacing: 2.2px;
+  gap: 19px;
+}
+.portrait-entry .brand > svg {
+  width: 43px;
+  height: 53px;
+}
+.portrait-entry .brand-sub {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  margin-top: 4px;
+}
+.portrait-entry .header-right {
+  gap: 29px;
+}
+.portrait-entry .live-tag {
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+.portrait-entry .live-tag i {
+  width: 9px;
+  height: 9px;
+  margin-right: 16px;
+}
+.portrait-entry .quick-button {
+  font-size: 16px;
+  padding: 13px 21px;
+  gap: 20px;
+  min-height: 52px;
+  background: #11162066;
+}
+.portrait-entry .start-screen {
+  align-items: flex-start;
+  padding: clamp(42px, 6.55svh, 77px) 4.85% 18px;
+}
+.portrait-entry .start-copy > .eyebrow {
+  font-size: 12px;
+  letter-spacing: 3px;
+  gap: 17px;
+}
+.portrait-entry .red-line {
+  width: 31px;
+}
+.portrait-entry .start-copy h1 {
+  font-family: Inter, sans-serif;
+  font-size: clamp(54px, 5.75vw, 86px);
+  font-weight: 800;
+  line-height: 1.035;
+  letter-spacing: -3.7px;
+  margin-top: 29px;
+  transform: scaleX(.93);
+  transform-origin: left center;
+}
+.portrait-entry .start-copy h1 > span {
+  color: #f20b35;
+}
+.portrait-entry .identity {
+  font-size: 18px;
+  letter-spacing: 1.2px;
+  margin-top: 26px;
+}
+.portrait-entry .role {
+  font-size: 19px;
+  margin-top: 4px;
+  color: #c9d1df;
+}
+.portrait-entry .role > span {
+  color: #f20b35;
+  padding: 0 12px;
+}
+.portrait-entry .intro {
+  font-size: 18px;
+  line-height: 1.65;
+  margin-top: 20px;
+  color: #c3ccd9;
+}
+.portrait-entry .start-actions {
+  gap: 24px;
+  margin-top: 32px;
+}
+.portrait-entry .start-actions .primary {
+  font-size: 16px;
+  min-height: 60px;
+  padding: 17px 29px;
+  gap: 23px;
+  background: #e40730;
+  border-color: #fb1644;
+  box-shadow: none;
+}
+.portrait-entry .start-actions .primary:hover {
+  background: #cf082c;
+}
+.portrait-entry .start-actions .text-button {
+  font-size: 15px;
+  gap: 15px;
+  max-width: none;
+}
+.portrait-entry .start-features {
+  margin-top: 26px;
+  gap: 27px;
+}
+.portrait-entry .start-features > span {
+  font-size: 10px;
+  letter-spacing: 0.7px;
+  color: #cad2de;
+  gap: 11px;
+}
+.portrait-entry .start-features svg {
+  width: 21px;
+  height: 21px;
+  color: #ff1745;
+}
+.portrait-entry .hero-caption,
+.portrait-entry .issue-number {
+  display: none;
+}
+.portrait-entry .game-footer {
+  height: clamp(58px, 7.2svh, 79px);
+  margin: 0 4%;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  background: #070b1155;
+  border-color: #c0cbd42b;
+}
+.portrait-entry .footer-middle {
+  font-size: 12px;
+  letter-spacing: 1.6px;
+}
+.portrait-entry .game-footer > span > i {
+  width: 7px;
+  height: 7px;
+}
+@media (min-width: 761px) and (max-height: 870px) {
+  .portrait-entry .start-screen {
+    padding-top: 32px;
+  }
+  .portrait-entry .start-copy h1 {
+    font-size: clamp(48px, 5vw, 70px);
+    margin-top: 18px;
+  }
+  .portrait-entry .identity {
+    font-size: 14px;
+    margin-top: 19px;
+  }
+  .portrait-entry .role {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  .portrait-entry .intro {
+    font-size: 15px;
+    margin-top: 16px;
+  }
+  .portrait-entry .start-actions {
+    margin-top: 22px;
+  }
+  .portrait-entry .start-actions .primary {
+    min-height: 52px;
+    padding: 14px 23px;
+  }
+  .portrait-entry .start-features {
+    margin-top: 20px;
+  }
+}
+@media (min-width: 761px) and (max-width: 1050px) {
+  .portrait-entry .start-copy h1 {
+    font-size: clamp(48px, 6vw, 64px);
+  }
+  .portrait-entry .brand {
+    font-size: 26px;
+    gap: 11px;
+  }
+  .portrait-entry .brand-sub {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+  .portrait-entry .header-right {
+    gap: 15px;
+  }
+  .portrait-entry .identity {
+    font-size: 14px;
+  }
+  .portrait-entry .intro {
+    font-size: 16px;
+  }
+  .portrait-entry .start-actions {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .portrait-shade {
+    background: linear-gradient(90deg, #04080e77, transparent 85%);
+  }
+}
+@media (max-width: 760px) {
+  .portrait-scene > img {
+    object-position: 65% center;
+    transform: none;
+  }
+  .portrait-shade {
+    background:
+      linear-gradient(90deg, #03060bde 0%, #03060ba1 53%, #03060b12 100%),
+      linear-gradient(0deg, #03060ba6, transparent 70%);
+  }
+  .portrait-entry .game-header {
+    height: 74px;
+    padding-inline: 5%;
+    gap: 10px;
+    background: #080d14bb;
+  }
+  .portrait-entry .brand {
+    font-size: 21px;
+    gap: 8px;
+    letter-spacing: 1px;
+  }
+  .portrait-entry .brand > svg {
+    width: 25px;
+    height: 37px;
+  }
+  .portrait-entry .brand-sub {
+    display: none;
+  }
+  .portrait-entry .header-right {
+    gap: 4px;
+  }
+  .portrait-entry .quick-button {
+    font-size: 13px;
+    min-height: 48px;
+    padding: 9px 11px;
+    gap: 7px;
+  }
+  .portrait-entry .start-screen {
+    padding: 25px 6%;
+    align-items: center;
+  }
+  .portrait-entry .start-copy {
+    height: auto;
+  }
+  .portrait-entry .start-copy > .eyebrow {
+    font-size: 9px;
+    letter-spacing: 1px;
+    gap: 8px;
+  }
+  .portrait-entry .red-line {
+    width: 20px;
+  }
+  .portrait-entry .start-copy h1 {
+    font-size: clamp(38px, 9.8vw, 66px);
+    transform: none;
+    line-height: 1.045;
+    letter-spacing: -1.7px;
+    margin-top: 22px;
+  }
+  .portrait-entry .identity {
+    font-size: 11px;
+    letter-spacing: 0.6px;
+    margin-top: 25px;
+  }
+  .portrait-entry .role {
+    font-size: 13px;
+    margin-top: 6px;
+  }
+  .portrait-entry .role > span {
+    padding: 0 4px;
+  }
+  .portrait-entry .intro {
+    font-size: 15px;
+    margin-top: 25px;
+    line-height: 1.75;
+  }
+  .portrait-entry .start-actions {
+    margin-top: 27px;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .portrait-entry .start-actions .primary {
+    min-height: 54px;
+    padding: 15px 23px;
+    font-size: 15px;
+    gap: 19px;
+  }
+  .portrait-entry .start-actions .text-button {
+    font-size: 13px;
+    gap: 9px;
+  }
+  .portrait-entry .start-features {
+    gap: 19px;
+    margin-top: 22px;
+  }
+  .portrait-entry .start-features > span {
+    font-size: 9px;
+    gap: 7px;
+    letter-spacing: 0.2px;
+  }
+  .portrait-entry .start-features svg {
+    width: 17px;
+    height: 17px;
+  }
+  .portrait-entry .game-footer {
+    height: 50px;
+    margin-inline: 5%;
+    font-size: 9px;
+    letter-spacing: 0.2px;
+    background: transparent;
+  }
+  .portrait-entry .game-footer .footer-middle {
+    display: none;
+  }
+}
+@media (max-width: 760px) and (max-height: 720px) {
+  .portrait-entry .game-header {
+    height: 62px;
+  }
+  .portrait-entry .start-screen {
+    padding-block: 18px;
+  }
+  .portrait-entry .start-copy h1 {
+    font-size: 38px;
+    margin-top: 15px;
+  }
+  .portrait-entry .identity {
+    margin-top: 17px;
+    font-size: 10px;
+  }
+  .portrait-entry .role {
+    font-size: 12px;
+  }
+  .portrait-entry .intro {
+    margin-top: 17px;
+    font-size: 14px;
+  }
+  .portrait-entry .start-actions {
+    margin-top: 19px;
+    gap: 3px;
+  }
+  .portrait-entry .start-actions .primary {
+    min-height: 50px;
+  }
+  .portrait-entry .start-features {
+    display: none;
+  }
+  .portrait-entry .game-footer {
+    height: 37px;
+  }
+}
+@media (max-width: 370px) {
+  .portrait-entry .brand {
+    font-size: 18px;
+    gap: 5px;
+  }
+  .portrait-entry .header-right {
+    gap: 0;
+  }
+  .portrait-entry .quick-button {
+    font-size: 12px;
+    padding: 8px;
+  }
+  .portrait-entry .start-copy h1 {
+    font-size: 36px;
+  }
+  .portrait-entry .role {
+    font-size: 12px;
+  }
+  .portrait-entry .start-copy > .eyebrow {
+    font-size: 8px;
+  }
+  .portrait-entry .start-actions .text-button {
+    font-size: 12px;
+  }
+}
