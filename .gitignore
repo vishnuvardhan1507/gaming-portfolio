@@ -4,4 +4,4 @@ test-results/
 playwright-report/
 .env*
 !.env.example
-.vercel/
+.vercel
