@@ -217,7 +217,7 @@ test('quick access, nested skills/projects, filtering, and PDF download', async 
 });
 test('contact draft is honest and restored', async ({ page }) => {
   await access(page, 'Contact');
-  await expect(page.getByLabel('Your name')).toHaveValue('Andena Vishnu Vardhan Reddy');
+  await expect(page.getByLabel('Your name')).toHaveValue('');
   await expect(page.getByLabel('Email address')).toHaveValue('');
   await expect(page.getByLabel('Your message')).toHaveValue('');
   await page.getByLabel('Your name').fill('Recruiter');

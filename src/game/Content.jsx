@@ -249,13 +249,14 @@ function Contact() {
   const [status, setStatus] = useState('');
   const [draft, setDraft] = useState(() => {
     const defaults = {
-      name: profile.name,
+      name: '',
       email: '',
       message: '',
     };
     try {
       const saved = JSON.parse(localStorage.getItem('contactDraft'));
       // Remove the former owner-prefilled values from existing local drafts too.
+      if (saved?.name === profile.name) saved.name = '';
       if (saved?.email === profile.email) saved.email = '';
       if (
         saved?.message ===
