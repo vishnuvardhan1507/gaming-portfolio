@@ -250,12 +250,19 @@ function Contact() {
   const [draft, setDraft] = useState(() => {
     const defaults = {
       name: profile.name,
-      email: profile.email,
-      message:
-        "Hi, I'm Andena Vishnu Vardhan Reddy, an AI Engineer and Full-Stack Developer. I'm open to opportunities in AI, software development, and collaborative projects. Let's connect and build something meaningful together.",
+      email: '',
+      message: '',
     };
     try {
       const saved = JSON.parse(localStorage.getItem('contactDraft'));
+      // Remove the former owner-prefilled values from existing local drafts too.
+      if (saved?.email === profile.email) saved.email = '';
+      if (
+        saved?.message ===
+        "Hi, I'm Andena Vishnu Vardhan Reddy, an AI Engineer and Full-Stack Developer. I'm open to opportunities in AI, software development, and collaborative projects. Let's connect and build something meaningful together."
+      ) {
+        saved.message = '';
+      }
       return Object.fromEntries(
         Object.entries(defaults).map(([key, value]) => [
           key,
