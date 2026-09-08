@@ -1,5 +1,11 @@
 # WEBLINE // Rooftop Trials
 
+Live portfolio: https://vishnu-gaming-portfolio.vercel.app
+
+The private GitHub repository is connected to the Vercel project `vishnu-gaming-portfolio`.
+Pushes to `main` trigger production deployments. Vercel runs `npm ci`, then `npm run build`,
+and serves the Vite output from `dist`.
+
 A playable Spider-Man-inspired developer portfolio for Andena Vishnu Vardhan Reddy. The entry screen matches the supplied portrait/city reference with live HTML text and buttons. Miles Morales–style black and crimson visuals surround a first-person rooftop web shooter built with React, Vite, original SVG artwork, and CSS. Fonts and artwork are served locally; no WebGL or backend is required.
 
 The entry background is `public/assets/hero-portrait.png`, edited from the user's reference with the built-in imagegen tool to remove baked-in interface text. The exact edit prompt is recorded in `public/assets/hero-portrait.prompt.txt`. `src/game/portrait.css` controls reference-matching typography, composition, and responsive cropping. Discovery counts remain live gameplay data, rather than the static count pictured in the reference.
@@ -11,7 +17,7 @@ npm install
 npm run dev
 ```
 
-Open the URL printed by Vite. Press **Start Mission**, choose any of seven rooftops, and web three drones within 30 seconds to unlock that portfolio section.
+Open the URL printed by Vite. Press **Enter**, choose any of seven rooftops, and web three drones within 30 seconds to unlock that portfolio section.
 
 - Mouse: aim and click. Touch: tap a drone. Keyboard: Tab to a target and Enter/Space to shoot.
 - Unlimited shots; misses affect accuracy. Captured drones cannot count twice.
