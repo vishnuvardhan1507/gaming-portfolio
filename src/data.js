@@ -1,4 +1,4 @@
-// Replace the empty contact fields and internship placeholders with verified details.
+// Portfolio details supplied by Vishnu. Add verified social links when available.
 export const profile = {
   name: 'Andena Vishnu Vardhan Reddy',
   email: 'vishnu24004@gmail.com',
@@ -6,10 +6,9 @@ export const profile = {
   linkedin: '',
   internshipCompany: 'NexusIQ Solutions LLP · Hyderabad, Telangana',
   internshipDetails: [
-    '[Add primary AI responsibility]',
-    '[Add technologies used]',
-    '[Add measurable contribution]',
-    '[Add AI / agent / model work]',
+    'Contributed to a multi-agent college assistant using LangGraph to coordinate AI agents and support college-related queries.',
+    'Integrated the Groq API to power chatbot responses and gained practical experience connecting AI applications to hosted language models.',
+    'Gained hands-on experience working with training and testing datasets to develop and evaluate machine learning models.',
   ],
 };
 export const missions = [
