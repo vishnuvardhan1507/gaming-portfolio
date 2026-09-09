@@ -49,6 +49,106 @@
   color: white;
   filter: drop-shadow(0 1px 3px #000);
 }
+.arena .drone.captured {
+  animation: none;
+  opacity: 1;
+  overflow: visible;
+}
+.drone-burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: burst-lifetime 1.4s linear forwards;
+}
+.drone-fragment {
+  position: absolute;
+  inset: 0;
+  animation: fragment-fall 1.25s linear forwards;
+}
+.arena .drone-fragment .drone-art {
+  filter: none;
+}
+.blast-flash {
+  position: absolute;
+  inset: -25%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff8cf, #ffae39 25%, #f5224266 50%, transparent 70%);
+  animation: blast-flash 0.24s ease-out forwards;
+}
+.blast-smoke {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  left: calc(50% - 30px);
+  top: calc(50% - 30px);
+  border-radius: 50%;
+  background: radial-gradient(circle, #d3ced8a6, #65616d99 45%, transparent 72%);
+  opacity: 0;
+  animation: blast-smoke 1.15s ease-out forwards;
+}
+.arena[data-effects-paused='true'] .drone-burst,
+.arena[data-effects-paused='true'] .drone-burst * {
+  animation-play-state: paused;
+}
+.arena:has(.drone-burst) .success-flash {
+  background: transparent;
+  justify-content: flex-start;
+  padding-top: 22px;
+  pointer-events: none;
+}
+.arena:has(.drone-burst) .success-flash strong {
+  background: #0c1532;
+  padding: 12px;
+}
+@keyframes burst-lifetime {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fragment-fall {
+  0% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+  25% {
+    transform: translate(calc(var(--scatter) * 0.4), var(--lift)) rotate(calc(var(--spin) * 0.25));
+    opacity: 1;
+  }
+  55% {
+    transform: translate(calc(var(--scatter) * 0.7), 25px) rotate(calc(var(--spin) * 0.55));
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--scatter), var(--fall)) rotate(var(--spin));
+    opacity: 0;
+  }
+}
+@keyframes blast-flash {
+  from {
+    transform: scale(0.35);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+@keyframes blast-smoke {
+  0% {
+    transform: translate(0, 0) scale(0.35);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate(var(--smoke-x), var(--smoke-y)) scale(2.3);
+    opacity: 0;
+  }
+}
 .shooter-pivot {
   position: absolute;
   width: 190px;

@@ -5,7 +5,7 @@ test('thwip audio renders a short, audible, unclipped effect', async ({ page }) 
   const result = await page.evaluate(async () => {
     const { renderWebShot } = await import('/src/game/webAudio.js');
     const render = async (capture) => {
-      const ctx = new OfflineAudioContext(1, 22050, 44100);
+      const ctx = new OfflineAudioContext(1, 44100, 44100);
       renderWebShot(ctx, capture);
       const samples = (await ctx.startRendering()).getChannelData(0);
       let peak = 0,
@@ -14,7 +14,7 @@ test('thwip audio renders a short, audible, unclipped effect', async ({ page }) 
       for (let i = 0; i < samples.length; i++) {
         peak = Math.max(peak, Math.abs(samples[i]));
         power += samples[i] ** 2;
-        if (i > 14000) tail = Math.max(tail, Math.abs(samples[i]));
+        if (i > 33075) tail = Math.max(tail, Math.abs(samples[i]));
       }
       return { peak, rms: Math.sqrt(power / samples.length), tail };
     };
@@ -89,6 +89,26 @@ const access = async (page, name) => {
 };
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
+});
+test('drone hits break into falling pieces and smoke, then clean up', async ({ page }) => {
+  await start(page);
+  await page.locator('.arena').click({ position: { x: 10, y: 10 } });
+  await expect(page.locator('.drone-burst')).toHaveCount(0);
+  await hit(page, 1);
+  const burst = page.locator('.drone-burst');
+  await expect(burst.locator('.drone-fragment')).toHaveCount(12);
+  await expect(burst.locator('.blast-smoke')).toHaveCount(5);
+  await page.getByRole('button', { name: 'Settings', exact: true }).click();
+  expect(await burst.evaluate(el => getComputedStyle(el).animationPlayState)).toBe('paused');
+  await page.getByRole('button', { name: 'Close panel' }).click();
+  await page.getByRole('button', { name: 'Resume mission' }).click();
+  await expect(burst).toHaveCount(0, { timeout: 4000 });
+  await expect(page.getByRole('button', { name: 'Web drone 1', exact: true })).toBeDisabled();
+  await hit(page, 2);
+  await hit(page, 3);
+  await expect(page.locator('.drone-burst')).toHaveCount(2);
+  await expect(page.getByRole('dialog')).not.toBeVisible();
+  await expect(page.getByRole('dialog')).toContainText('Vardhan Reddy');
 });
 test('encounters unlock through keyboard hits, ignore duplicates, and persist', async ({
   page,

@@ -60,21 +60,54 @@ export function renderWebShot(ctx, capture = false, destination = ctx.destinatio
   whip.start(start);
   whip.stop(start + 0.19);
   if (capture) {
-    const impact = ctx.createBufferSource(),
-      lowpass = ctx.createBiquadFilter(),
-      hitGain = ctx.createGain();
-    impact.buffer = noise(ctx);
-    lowpass.type = 'lowpass';
-    lowpass.frequency.value = 1400;
-    hitGain.gain.setValueAtTime(0.3, start + 0.11);
-    hitGain.gain.exponentialRampToValueAtTime(0.001, start + 0.24);
-    impact.connect(lowpass);
-    lowpass.connect(hitGain);
-    hitGain.connect(master);
-    impact.start(start + 0.11);
-    impact.stop(start + 0.26);
+    renderDroneBlast(ctx, destination);
   }
   hiss.onended = () => master.disconnect();
+}
+// Short mechanical explosion: low thump, tearing metal, and a fading smoke hiss.
+export function renderDroneBlast(ctx, destination = ctx.destination) {
+  const start = ctx.currentTime;
+  const master = ctx.createGain();
+  master.gain.value = 0.24;
+  master.connect(destination);
+  const debris = ctx.createBufferSource();
+  debris.buffer = noise(ctx);
+  debris.loop = true;
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.setValueAtTime(6500, start);
+  filter.frequency.exponentialRampToValueAtTime(280, start + 0.55);
+  const envelope = ctx.createGain();
+  envelope.gain.setValueAtTime(0.001, start);
+  envelope.gain.exponentialRampToValueAtTime(1.1, start + 0.006);
+  envelope.gain.exponentialRampToValueAtTime(0.2, start + 0.12);
+  envelope.gain.exponentialRampToValueAtTime(0.001, start + 0.6);
+  debris.connect(filter).connect(envelope).connect(master);
+  debris.start(start);
+  debris.stop(start + 0.65);
+  const boom = ctx.createOscillator(),
+    boomGain = ctx.createGain();
+  boom.frequency.setValueAtTime(150, start);
+  boom.frequency.exponentialRampToValueAtTime(38, start + 0.25);
+  boomGain.gain.setValueAtTime(0.001, start);
+  boomGain.gain.exponentialRampToValueAtTime(0.85, start + 0.008);
+  boomGain.gain.exponentialRampToValueAtTime(0.001, start + 0.32);
+  boom.connect(boomGain).connect(master);
+  boom.start(start);
+  boom.stop(start + 0.35);
+  [730, 1190, 1840].forEach((frequency, i) => {
+    const metal = ctx.createOscillator(),
+      gain = ctx.createGain();
+    metal.type = 'triangle';
+    metal.frequency.setValueAtTime(frequency, start);
+    metal.frequency.exponentialRampToValueAtTime(frequency * 0.3, start + 0.2);
+    gain.gain.setValueAtTime(0.08, start + i * 0.018);
+    gain.gain.exponentialRampToValueAtTime(0.001, start + 0.25);
+    metal.connect(gain).connect(master);
+    metal.start(start + i * 0.018);
+    metal.stop(start + 0.28);
+  });
+  debris.onended = () => master.disconnect();
 }
 const buses = new WeakMap();
 export function playWebShot(ctx, capture) {
@@ -90,7 +123,7 @@ export function playWebShot(ctx, capture) {
     bus = { compressor, last: -1 };
     buses.set(ctx, bus);
   }
-  if (ctx.currentTime - bus.last < 0.035) return;
+  if (!capture && ctx.currentTime - bus.last < 0.035) return;
   bus.last = ctx.currentTime;
   renderWebShot(ctx, capture, bus.compressor);
 }

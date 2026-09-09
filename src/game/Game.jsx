@@ -18,6 +18,7 @@ import Scene, { Spider } from './Scene';
 import { WebPattern, MaskArt } from './ComicArt';
 import { DroneArtwork, ReferenceGlove } from './Equipment';
 import { playWebShot } from './webAudio';
+import DroneBurst from './DroneBurst';
 import Content, { destinations } from './Content';
 const icons = [User, Code2, Briefcase, BookOpen, Trophy, FileText, Mail];
 const read = (key, fallback) => {
@@ -141,7 +142,7 @@ export default function Game() {
         setMode('content');
         setOverlay('content');
       },
-      reduced ? 0 : 700,
+      reduced ? 0 : 1500,
     );
     return () => clearTimeout(id);
   }, [mode, reduced]);
@@ -445,6 +446,7 @@ export default function Game() {
               className={`arena ${mode === 'encounter' ? 'shooting' : ''}`}
               data-difficulty={easy ? 'easy' : 'timed'}
               data-firing={!!shot}
+              data-effects-paused={paused || !!overlay}
               onClick={mode === 'encounter' ? (e) => fire(e, undefined) : undefined}
               onPointerMove={(e) => {
                 const bounds = e.currentTarget.getBoundingClientRect();
@@ -471,12 +473,7 @@ export default function Game() {
                       onClick={(e) => fire(e, i)}
                       style={{ left: `${((i + 0.5) * 100) / 3}%`, top: `${i % 2 ? 60 : 36}%` }}
                     >
-                      <DroneArtwork />
-                      {hits.includes(i) && (
-                        <span className="capture-net">
-                          <Check />
-                        </span>
-                      )}
+                      {hits.includes(i) ? <DroneBurst reduced={reduced} /> : <DroneArtwork />}
                     </button>
                   ))}
                   <div className="shooter-pivot" aria-hidden="true">
