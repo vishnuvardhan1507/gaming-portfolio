@@ -255,7 +255,23 @@ test('contact draft is honest and restored', async ({ page }) => {
   await page.getByLabel('Email address').fill('recruiter@example.com');
   await page.getByLabel('Your message').fill('Hello Vishnu, let us discuss an opportunity.');
   await page.getByRole('button', { name: /Open email draft/ }).click();
-  await expect(page.getByRole('dialog')).toContainText('Send it from your email app');
+  await expect(page.getByRole('dialog')).toContainText('press Send in that app');
+  await expect(page.getByRole('dialog')).toContainText('Nothing has been sent yet');
+  await page.evaluate(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: {
+        writeText: async () => {
+          throw new Error('Clipboard unavailable');
+        },
+      },
+    });
+  });
+  await page.getByRole('button', { name: 'Copy email details', exact: true }).click();
+  await expect(page.getByLabel('Email details to copy')).toContainText('To: vishnu24004@gmail.com');
+  await expect(page.getByLabel('Email details to copy')).toContainText(
+    'Reply to: recruiter@example.com',
+  );
   await page.reload();
   await access(page, 'Contact');
   await expect(page.getByLabel('Your name')).toHaveValue('Recruiter');

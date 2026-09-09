@@ -247,6 +247,7 @@ export default function Content({ section, detail, onDetail }) {
 }
 function Contact() {
   const [status, setStatus] = useState('');
+  const [manualCopy, setManualCopy] = useState(false);
   const [draft, setDraft] = useState(() => {
     const defaults = {
       name: '',
@@ -274,6 +275,21 @@ function Contact() {
       return defaults;
     }
   });
+  const emailDetails = `To: ${profile.email}\nSubject: Portfolio enquiry from ${draft.name}\n\n${draft.message}\n\nReply to: ${draft.email}`;
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(emailDetails);
+      setManualCopy(false);
+      setStatus(
+        'Email details copied. Paste them into a new email, then press Send. Nothing has been sent yet.',
+      );
+    } catch {
+      setManualCopy(true);
+      setStatus(
+        'Select and copy the email details below, then paste them into a new email and press Send.',
+      );
+    }
+  };
   const submit = (e) => {
     e.preventDefault();
     try {
@@ -289,7 +305,9 @@ function Contact() {
       return;
     }
     location.href = `mailto:${profile.email}?subject=${encodeURIComponent('Portfolio enquiry from ' + draft.name)}&body=${encodeURIComponent(draft.message + '\n\nReply to: ' + draft.email)}`;
-    setStatus('Email draft opened. Send it from your email app to complete your message.');
+    setStatus(
+      'Your email app should open with a draft. Review it and press Send in that app. If nothing opened, use Copy email details below. Nothing has been sent yet.',
+    );
   };
   return (
     <>
@@ -348,10 +366,32 @@ function Contact() {
         </button>
         <p className="note">
           {profile.email
-            ? 'Opens your email app.'
+            ? 'Next: review the draft in your email app and press Send. This website does not send messages directly.'
             : 'Contact details are being added. Drafts stay on your device.'}
         </p>
         <p role="status">{status}</p>
+        {status && profile.email && (
+          <>
+            <button type="button" className="button" onClick={copyEmail}>
+              Copy email details
+            </button>
+            <p className="note">
+              No email app? Open Gmail or your preferred email service, compose a message to{' '}
+              {profile.email}, and paste your message.
+            </p>
+            {manualCopy && (
+              <label>
+                Email details to copy
+                <textarea
+                  readOnly
+                  value={emailDetails}
+                  rows={8}
+                  onFocus={(e) => e.target.select()}
+                />
+              </label>
+            )}
+          </>
+        )}
       </form>
     </>
   );
