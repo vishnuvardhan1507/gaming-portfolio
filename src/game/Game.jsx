@@ -40,7 +40,10 @@ function Dialog({ title, onClose, children, wide = false }) {
     ref.current.showModal();
     return () => {
       if (prior?.isConnected) prior.focus();
-      else document.getElementById('webline-home')?.focus();
+      else
+        (
+          document.getElementById('entry-quick-access') || document.getElementById('webline-home')
+        )?.focus();
     };
   }, []);
   return (
@@ -64,6 +67,7 @@ function Dialog({ title, onClose, children, wide = false }) {
   );
 }
 export default function Game() {
+  const contentReturn = useRef('map');
   const [mode, setMode] = useState('start'),
     [overlay, setOverlay] = useState(null),
     [section, setSection] = useState('profile'),
@@ -236,6 +240,7 @@ export default function Game() {
     });
   }
   function begin(id = section, forceEasy = easy) {
+    contentReturn.current = 'map';
     round.current = {
       active: true,
       destination: id,
@@ -259,6 +264,7 @@ export default function Game() {
     requestAnimationFrame(() => drones.current[0]?.focus({ preventScroll: true }));
   }
   function select(id, e) {
+    contentReturn.current = 'map';
     projectile(e);
     tone();
     if (unlocked.includes(id)) {
@@ -306,7 +312,10 @@ export default function Game() {
         setOverlay('pause');
       } else {
         setOverlay(null);
-        setMode('map');
+        setMode(contentReturn.current);
+        if (contentReturn.current === 'start') {
+          requestAnimationFrame(() => document.getElementById('entry-quick-access')?.focus());
+        }
       }
     } else if (round.current.active) {
       setPaused(true);
@@ -317,6 +326,7 @@ export default function Game() {
     }
   }
   function quick(id) {
+    contentReturn.current = mode === 'start' ? 'start' : 'map';
     setSection(id);
     setHistory([]);
     if (round.current.active) {
@@ -388,8 +398,12 @@ export default function Game() {
                 >
                   ENTER <ArrowUpRight />
                 </button>
-                <button className="text-button" onClick={() => setOverlay('quick')}>
-                  Explore portfolio <ArrowUpRight size={17} />
+                <button
+                  id="entry-quick-access"
+                  className="text-button"
+                  onClick={() => setOverlay('quick')}
+                >
+                  Quick Access <ArrowUpRight size={17} />
                 </button>
               </div>
             </div>
@@ -653,7 +667,7 @@ export default function Game() {
               </div>
               {mode !== 'start' && (
                 <button className="button" onClick={() => setOverlay('quick')}>
-                  Explore portfolio <ArrowUpRight size={17} />
+                  Quick Access <ArrowUpRight size={17} />
                 </button>
               )}
               <button className="button danger" onClick={() => setOverlay('reset')}>

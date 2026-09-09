@@ -75,10 +75,10 @@ const win = async (page) => {
   await expect(page.getByRole('dialog')).toBeVisible();
 };
 const openQuick = async (page) => {
-  if (!(await page.getByRole('button', { name: 'Explore portfolio', exact: true }).isVisible())) {
+  if (!(await page.getByRole('button', { name: 'Quick Access', exact: true }).isVisible())) {
     await page.getByRole('button', { name: 'Settings', exact: true }).click();
   }
-  await page.getByRole('button', { name: 'Explore portfolio', exact: true }).click();
+  await page.getByRole('button', { name: 'Quick Access', exact: true }).click();
 };
 const access = async (page, name) => {
   await openQuick(page);
@@ -90,6 +90,17 @@ const access = async (page, name) => {
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
 });
+test('Quick Access returns to the starting page after reading or cancelling', async ({ page }) => {
+  await openQuick(page);
+  await page.getByRole('button', { name: 'Close panel' }).click();
+  await expect(page.getByRole('button', { name: 'ENTER', exact: true })).toBeVisible();
+  await access(page, 'Skills');
+  await page.getByRole('button', { name: 'TensorFlow ↗', exact: true }).click();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'ENTER', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Quick Access', exact: true })).toBeFocused();
+  await expect(page.locator('.destination-grid')).toHaveCount(0);
+});
 test('drone hits break into falling pieces and smoke, then clean up', async ({ page }) => {
   await start(page);
   await page.locator('.arena').click({ position: { x: 10, y: 10 } });
@@ -99,7 +110,7 @@ test('drone hits break into falling pieces and smoke, then clean up', async ({ p
   await expect(burst.locator('.drone-fragment')).toHaveCount(12);
   await expect(burst.locator('.blast-smoke')).toHaveCount(5);
   await page.getByRole('button', { name: 'Settings', exact: true }).click();
-  expect(await burst.evaluate(el => getComputedStyle(el).animationPlayState)).toBe('paused');
+  expect(await burst.evaluate((el) => getComputedStyle(el).animationPlayState)).toBe('paused');
   await page.getByRole('button', { name: 'Close panel' }).click();
   await page.getByRole('button', { name: 'Resume mission' }).click();
   await expect(burst).toHaveCount(0, { timeout: 4000 });
