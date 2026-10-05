@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Download, Printer } from 'lucide-react';
-import { profile, missions, branches } from './data';
+import { profile, missions, branches, publication } from './data';
 
 export default function Resume({ autoDownload = false }) {
   const [status, setStatus] = useState('');
@@ -80,8 +80,10 @@ export default function Resume({ autoDownload = false }) {
       write('Rainbow School | CBSE | 2018-2019 | 426 / 500');
       heading('PUBLICATION & ACHIEVEMENTS');
       write(
-        'Smart Surveillance with Hand Gesture Detection for Silent Emergency Alerts. 4th International Conference on Advances in Software Engineering and Information Technology (ASIT 2025), August 2025.',
+        `${publication.title}. ${publication.journal}, ${publication.citation}. Scopus-indexed; EID: ${publication.eid}.`,
       );
+      write(publication.authors, 9);
+      write(publication.url, 9);
       write('Winner of Intra-University Cricket Tournament, 2024-25.');
       doc.save('Andena-Vishnu-Vardhan-Reddy-Resume.pdf');
       setStatus('PDF downloaded. Generated from the portfolio details.');
@@ -167,9 +169,17 @@ export default function Resume({ autoDownload = false }) {
         </p>
         <h4>Publication & achievements</h4>
         <p>
-          Smart Surveillance with Hand Gesture Detection for Silent Emergency Alerts · 4th
-          International Conference on Advances in Software Engineering and Information Technology ·
-          ASIT 2025 · August 2025
+          <strong>{publication.title}</strong>
+          <br />
+          {publication.authors}
+          <br />
+          {publication.journal} · {publication.citation}
+          <br />
+          Scopus-indexed · EID: {publication.eid}
+          <br />
+          <a href={publication.url} target="_blank" rel="noreferrer">
+            Read publication ↗
+          </a>
         </p>
         <p>Winner of Intra-University Cricket Tournament · 2024–25</p>
       </article>

@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useState } from 'react';
-import { profile, missions, branches } from '../data';
+import { profile, missions, branches, publication } from '../data';
 const Resume = lazy(() => import('../resume'));
 export const destinations = [
   ['profile', 'Profile', 'The person behind the mask'],
@@ -29,6 +29,16 @@ export default function Content({ section, detail, onDetail }) {
         <h2>{m.name}</h2>
         <p>{m.description}</p>
         <Tags items={m.tech} />
+        {m.id === '02' && (
+          <div className="actions">
+            <a className="button" href={publication.url} target="_blank" rel="noreferrer">
+              Read publication ↗
+            </a>
+            <a className="button" href={publication.scopusUrl} target="_blank" rel="noreferrer">
+              View on Scopus ↗
+            </a>
+          </div>
+        )}
         {m.id === '01' && (
           <div className="architecture">
             USER QUERY ↓ GUARDRAIL ↓ SUPERVISOR
@@ -221,15 +231,31 @@ export default function Content({ section, detail, onDetail }) {
       <>
         <h2>Work worth recognizing.</h2>
         <article className="content-block">
-          <span className="eyebrow">RESEARCH PUBLISHED / AUGUST 2025</span>
-          <h3>Smart Surveillance with Hand Gesture Detection for Silent Emergency Alerts</h3>
+          <span className="eyebrow">SCOPUS-INDEXED PUBLICATION / 2026</span>
+          <h3>{publication.title}</h3>
+          <p>{publication.authors}</p>
           <p>
-            4th International Conference on Advances in Software Engineering and Information
-            Technology — ASIT 2025
+            <strong>{publication.journal}</strong>
+            <br />
+            {publication.citation}
           </p>
-          <button className="button" onClick={() => onDetail({ type: 'project', id: '02' })}>
-            Explore research ↗
-          </button>
+          <p>{publication.summary}</p>
+          <p>
+            Scopus conference listing: {publication.conference}
+            <br />
+            EID: {publication.eid}
+          </p>
+          <div className="actions">
+            <a className="button primary" href={publication.url} target="_blank" rel="noreferrer">
+              Read publication ↗
+            </a>
+            <a className="button" href={publication.scopusUrl} target="_blank" rel="noreferrer">
+              View on Scopus ↗
+            </a>
+            <button className="button" onClick={() => onDetail({ type: 'project', id: '02' })}>
+              Explore research ↗
+            </button>
+          </div>
         </article>
         <article className="content-block">
           <span className="eyebrow">2024–25 / TOURNAMENT WINNER</span>

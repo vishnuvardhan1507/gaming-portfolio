@@ -11,6 +11,19 @@ export const profile = {
     'Gained hands-on experience working with training and testing datasets to develop and evaluate machine learning models.',
   ],
 };
+export const publication = {
+  title: 'Smart Surveillance with Hand Gesture Detection for Silent Emergency Alerts',
+  authors: 'Anil V Turukmane, Vishnu Vardhan Reddy, Ruthvik Reddy Anupati, Reethwik Reddy Poreddy',
+  journal: 'GRENZE International Journal of Engineering and Technology',
+  citation: 'Vol. 12, Issue 1 (2026), pp. 3929–3939',
+  conference:
+    '17th International Conference on Advances in Computing, Control, and Telecommunication Technologies (ACT 2026)',
+  eid: '2-s2.0-105047243065',
+  url: 'https://thegrenze.com/abstract/journal/6903',
+  scopusUrl: 'https://www.scopus.com/pages/publications/105047243065',
+  summary:
+    'Co-authored research on Silent Alert, a computer-vision system that recognizes distress hand gestures in live video and captures image evidence for email-based emergency alerts.',
+};
 export const missions = [
   {
     id: '01',
@@ -47,8 +60,7 @@ export const missions = [
       'Detect hand landmarks and recognize emergency gestures.',
       'Capture a screenshot and send an automated email alert.',
     ],
-    result:
-      'Research published at the 4th International Conference on Advances in Software Engineering and Information Technology — ASIT 2025.',
+    result: `Published in ${publication.journal}, ${publication.citation}. Indexed in Scopus (EID: ${publication.eid}).`,
     code: '',
   },
   {
