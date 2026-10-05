@@ -66,7 +66,7 @@ export default function Resume({ autoDownload = false }) {
       );
       heading('SELECTED PROJECTS');
       missions.forEach((m) => {
-        write(`${m.name} | ${m.year}`, 11, true);
+        write(`${m.name}${m.year ? ` | ${m.year}` : ''}`, 11, true);
         write(m.description);
         write(`Technologies: ${m.tech.join(', ')}`, 9);
         write(m.result, 9);
@@ -143,7 +143,8 @@ export default function Resume({ autoDownload = false }) {
         {missions.map((m) => (
           <div key={m.id}>
             <strong>
-              {m.name} · {m.year}
+              {m.name}
+              {m.year ? ` · ${m.year}` : ''}
             </strong>
             <p>{m.description}</p>
             <p>{m.result}</p>

@@ -26,6 +26,35 @@ export const publication = {
 };
 export const missions = [
   {
+    id: '05',
+    name: 'Permission-Aware Multi-Tenant RAG System',
+    category: 'RAG / Secure AI Applications',
+    year: '',
+    status: 'Completed',
+    short: 'Relevant answers. Access limited to the right users and tenants.',
+    description:
+      'Built a permission-aware retrieval-augmented generation application that lets users across multiple organizations query documents within their authorized scope. The system combines tenant isolation, role-based access control, metadata filtering, and vector search to restrict retrieved context before it reaches the language model. Audit logging records retrieval activity for traceability.',
+    tech: [
+      'RAG',
+      'Embeddings',
+      'Vector Databases',
+      'Metadata Filtering',
+      'Role-Based Access Control',
+      'Multi-Tenancy',
+      'Audit Logging',
+    ],
+    steps: [
+      'Associate document embeddings with tenant and access-control metadata for permission-aware retrieval.',
+      'Use the requesting user’s tenant and role to determine the document scope they may access.',
+      'Apply metadata and permission filters during vector search to exclude unauthorized content from retrieval.',
+      'Pass only permitted document context to the language model to generate a relevant response.',
+      'Record retrieval activity in audit logs to support access reviews and troubleshooting.',
+    ],
+    result:
+      'Implemented permission checks before LLM context generation, combining document retrieval with tenant isolation, role-based access control, and auditable access.',
+    code: '',
+  },
+  {
     id: '01',
     name: 'Multi-Agent College Assistant',
     category: 'Agentic AI / Multi-Agent System',
@@ -113,6 +142,7 @@ export const branches = [
       'CNN',
       'Computer Vision',
       'RAG',
+      'Embeddings',
       'AI Agents',
       'Multi-Agent Systems',
     ],
@@ -128,7 +158,7 @@ export const branches = [
   {
     name: 'Database',
     icon: 'database',
-    skills: ['MySQL', 'SQLite'],
+    skills: ['MySQL', 'SQLite', 'Vector Databases'],
     description:
       'Structured data storage and retrieval for application backends and AI query workflows.',
   },
@@ -138,6 +168,13 @@ export const branches = [
     skills: ['REST APIs', 'Flask', 'Backend Development', 'Full-Stack Development'],
     description:
       'Connecting interfaces, application logic, and data through practical software systems.',
+  },
+  {
+    name: 'Secure AI Applications',
+    icon: 'layers',
+    skills: ['Metadata Filtering', 'Role-Based Access Control', 'Multi-Tenancy', 'Audit Logging'],
+    description:
+      'Restricting document retrieval by tenant and role before LLM context generation, with audit logs for traceability.',
   },
   {
     name: 'Tools',

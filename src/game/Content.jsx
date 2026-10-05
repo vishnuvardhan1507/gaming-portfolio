@@ -4,7 +4,7 @@ const Resume = lazy(() => import('../resume'));
 export const destinations = [
   ['profile', 'Profile', 'The person behind the mask'],
   ['skills', 'Skills', 'The technical arsenal'],
-  ['projects', 'Projects', 'Four systems. Real-world impact.'],
+  ['projects', 'Projects', 'Five systems. Real-world impact.'],
   ['experience', 'Experience', 'The engineering journey'],
   ['achievements', 'Achievements', 'Research and milestones'],
   ['resume', 'Resume', 'Your complete dossier'],
@@ -24,7 +24,8 @@ export default function Content({ section, detail, onDetail }) {
     return (
       <>
         <span className="eyebrow">
-          PROJECT {m.id} / {m.category} / {m.year}
+          PROJECT {m.id} / {m.category}
+          {m.year ? ` / ${m.year}` : ''}
         </span>
         <h2>{m.name}</h2>
         <p>{m.description}</p>
@@ -169,7 +170,8 @@ export default function Content({ section, detail, onDetail }) {
               onClick={() => onDetail({ type: 'project', id: m.id })}
             >
               <span className="eyebrow">
-                {m.id} / {m.year} · {m.status}
+                {m.id}
+                {m.year ? ` / ${m.year}` : ''} · {m.status}
               </span>
               <h3>{m.name} ↗</h3>
               <p>{m.short}</p>
